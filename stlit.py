@@ -56,7 +56,7 @@ max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, v
 st.sidebar.subheader("Z-Scan Data Inputs")
 z_values_input = st.sidebar.text_area("Enter z values (comma-separated)")
 t_values_input = st.sidebar.text_area("Enter t values (comma-separated)")
-v_file = st.sidebar.file_uploader('Upload Data File (csv/excel) ', type = 'csv', 'excel')
+v_file = st.sidebar.file_uploader('Upload Data File (csv/excel) ', type = ['csv', 'excel'])
 
 z_values = np.array([float(x) for x in z_values_input.split(',')]) * 1e-2
 t_values = np.array([float(x) for x in t_values_input.split(',')]) / 0.95
