@@ -56,9 +56,10 @@ max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, v
 st.sidebar.subheader("Z-Scan Data Inputs")
 z_values_input = st.sidebar.text_area("Enter z values (comma-separated)")
 t_values_input = st.sidebar.text_area("Enter t values (comma-separated)")
+v_file = st.sidebar.file_uploader('Upload Data File (csv/excel) ', type = 'csv', 'excel')
 
 z_values = np.array([float(x) for x in z_values_input.split(',')]) * 1e-2
-t_values = np.array([float(x) for x in t_values_input.split(',')]) /0.95
+t_values = np.array([float(x) for x in t_values_input.split(',')]) / 0.95
 
 # Run simulation
 solver = ZScanSolution(linear_transmittance, sample_length, beam_waist, pulse_width, wavelength, z_values, t_values)
@@ -74,3 +75,5 @@ ax.set_title("Z-Scan Data")
 ax.legend()
 ax.grid()
 st.pyplot(fig)
+
+# 
