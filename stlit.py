@@ -76,4 +76,11 @@ ax.legend()
 ax.grid()
 st.pyplot(fig)
 
-# 
+# Save data
+
+s = [linear_transmittance, sample_length, beam_waist, pulse_width, wavelength, energy, saturation_intensity, beta, gamma, max_step]
+
+with open('data.txt', 'a+') as db:
+    for i in s:
+        db.write(i)
+    
