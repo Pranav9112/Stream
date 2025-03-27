@@ -6,3 +6,12 @@ class FileError(Exception):
 
     def __str__(self):
         return self.message
+
+class ColError(Exception):
+
+    def __init__(self, message = 'Necessary columns are not found'):
+        self.message = message
+        super().__init__()
+
+    def __str__(self):
+        return self.message
