@@ -58,7 +58,7 @@ max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, v
 st.sidebar.subheader("Z-Scan Data Inputs")
 z_values_input = st.sidebar.text_area("Enter z values (comma-separated)")
 t_values_input = st.sidebar.text_area("Enter t values (comma-separated)")
-v_button = st.button('Upload Data File')
+v_button = st.button(label='Upload Data File')
 
 # File Handling
 if v_button:
