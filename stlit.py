@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
+from fh import *
+from Exp import *
 
 class ZScanSolution:
     def __init__(self, linear_transmittance, sample_length, beam_waist, pulse_width, wavelength, z_values, t_values):
@@ -41,22 +43,32 @@ st.title("Z-Scan Simulation")
 st.sidebar.header("Input Parameters")
 
 # User inputs
-linear_transmittance = st.sidebar.slider("Linear Transmittance", 0.1, 1.0, 0.8)
-sample_length = st.sidebar.number_input("Sample Length (m)", min_value=1e-100, format='%e')
-beam_waist = st.sidebar.number_input("Beam Waist at Focus (m)", min_value=1e-100, format='%e')
-pulse_width = st.sidebar.number_input("Pulse Width (s)", min_value=1e-100, format='%e')
-wavelength = st.sidebar.number_input("Wavelength (m)", min_value=1e-100, format='%e')
-energy = st.sidebar.number_input("Pulse Energy (J)", min_value=1e-100, format='%e')
-saturation_intensity = st.sidebar.number_input("Saturation Intensity (W/m²)", min_value=1e-100, format='%e')
-beta = st.sidebar.number_input("Beta (Nonlinear Absorption Coeff.)", min_value=1e-100, format='%e')
-gamma = st.sidebar.number_input("Gamma (Nonlinear Refraction Coeff.)", min_value=1e-100, format='%e')
+linear_transmittance = st.sidebar.slider("Linear Transmittance", 0.1, 1.0, value=df[2])
+sample_length = st.sidebar.number_input("Sample Length (m)", min_value=1e-100, format='%e', value=df[3])
+beam_waist = st.sidebar.number_input("Beam Waist at Focus (m)", min_value=1e-100, format='%e', value=df[4])
+pulse_width = st.sidebar.number_input("Pulse Width (s)", min_value=1e-100, format='%e', value=df[5])
+wavelength = st.sidebar.number_input("Wavelength (m)", min_value=1e-100, format='%e', value=df[6])
+energy = st.sidebar.number_input("Pulse Energy (J)", min_value=1e-100, format='%e', value=df[7])
+saturation_intensity = st.sidebar.number_input("Saturation Intensity (W/m²)", min_value=1e-100, format='%e', value=df[8])
+beta = st.sidebar.number_input("Beta (Nonlinear Absorption Coeff.)", min_value=1e-100, format='%e', value=df[9])
+gamma = st.sidebar.number_input("Gamma (Nonlinear Refraction Coeff.)", min_value=1e-100, format='%e', value=df[10])
 max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, value=1e-4, format='%e')
 
 # User input for z and t data
 st.sidebar.subheader("Z-Scan Data Inputs")
 z_values_input = st.sidebar.text_area("Enter z values (comma-separated)")
 t_values_input = st.sidebar.text_area("Enter t values (comma-separated)")
-v_file = st.sidebar.file_uploader('Upload Data File', type = ['csv', 'excel'])
+v_button = st.button('Upload Data File')
+
+# File Handling
+if v_button:
+    with st.popover("Read ME"):
+        st.markdown('The file must be in a certain format')
+        st.markdown('columns must have linear_transmittance, sample_length, beam_waist, pulse_width, wavelength, z_values, t_values, as their headings in the csv/excel file')
+    v_file = st.fileuploader('Upload Data File', type = ['csv', 'excel'])
+    if uploaded_file is not None:
+        df = process_file(uploaded_file)
+        
 
 z_values = np.array([float(x) for x in z_values_input.split(',')]) * 1e-2
 t_values = np.array([float(x) for x in t_values_input.split(',')]) / 0.95
