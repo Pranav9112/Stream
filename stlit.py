@@ -116,7 +116,9 @@ if v_file is not None:
         st.error(f"Error: {str(e)}")
 
 # Save parameters to file
-params = [linear_transmittance, sample_length, beam_waist, pulse_width, wavelength,
-          energy, saturation_intensity, beta, gamma, max_step]
-with open('data.txt', 'a+') as f:
-    f.write(",".join(map(str, params)) + "\n")
+s_button = st.sidebar.button('Save Data')
+if s_button:
+    params = [linear_transmittance, sample_length, beam_waist, pulse_width, wavelength,
+              energy, saturation_intensity, beta, gamma, max_step]
+    with open('data.txt', 'a+') as f:
+        f.write(",".join(map(str, params)) + "\n")
