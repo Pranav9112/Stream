@@ -4,12 +4,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
+
 # Custom exceptions
 class FileFormatError(Exception):
     pass
 
+
 class MissingColumnError(Exception):
     pass
+
 
 # Solver Class
 class ZScanSolution:
@@ -59,16 +62,12 @@ class ZScanSolution:
 
         return df
 
+
 # Streamlit App
 st.title("🔬 Z-Scan Simulation")
 st.sidebar.header("Input Parameters")
 
 # Sidebar inputs
-linear_transmittance = st.sidebar.slider("Linear Transmittance", 0.1, 1.0, value=0.5)
-sample_length = st.sidebar.number_input("Sample Length (m)", min_value=1e-100, format='%e', value=1e-3)
-beam_waist = st.sidebar.number_input("Beam Waist at Focus (m)", min_value=1e-100, format='%e', value=1e-3)
-pulse_width = st.sidebar.number_input("Pulse Width (s)", min_value=1e-100, format='%e', value=1e-9)
-wavelength = st.sidebar.number_input("Wavelength (m)", min_value=1e-100, format='%e', value=1e-9)
 energy = st.sidebar.number_input("Pulse Energy (J)", min_value=1e-100, format='%e', value=1e-3)
 saturation_intensity = st.sidebar.number_input("Saturation Intensity (W/m²)", min_value=1e-100, format='%e', value=1e-6)
 beta = st.sidebar.number_input("Beta (Nonlinear Absorption)", min_value=1e-100, format='%e', value=1e-6)
@@ -95,6 +94,18 @@ if v_file is not None:
 
         z_values = df['z_values'].values * 1e-2  # convert cm to m
         t_values = df['t_values'].values / 0.95  # normalize
+        linear_transmittance = df['linear_transmittance'][0]
+        sample_length = df['sample_length'][0]
+        beam_waist = df['beam_waist'][0]
+        pulse_width = df['pulse_width'][0]
+        wavelength = df['wavelength'][0]
+
+        st.sidebar.markdown('**Values of:**')
+        st.sidebar.markdown(f'Linear Transmittance: {linear_transmittance}')
+        st.sidebar.markdown(f'Sample Length: {sample_length}')
+        st.sidebar.markdown(f'Beam Waist: {beam_waist}')
+        st.sidebar.markdown(f'Pulse Width: {pulse_width}')
+        st.sidebar.markdown(f'Wavelength: {wavelength}')
 
         solver = ZScanSolution(linear_transmittance, sample_length, beam_waist,
                                pulse_width, wavelength, z_values, t_values)
@@ -117,6 +128,7 @@ if v_file is not None:
 
 # Save parameters to file
 s_button = st.sidebar.button('Save Data')
+
 if s_button:
     params = [linear_transmittance, sample_length, beam_waist, pulse_width, wavelength,
               energy, saturation_intensity, beta, gamma, max_step]
