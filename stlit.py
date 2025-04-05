@@ -160,4 +160,4 @@ if len(computed) != 0:
             st.warning("Poor Fit – Consider tuning parameters 🛠️")
     else:
         st.warning("Mismatch in data lengths – cannot calculate metrics.")
-else pass
+else: pass
