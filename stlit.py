@@ -138,7 +138,7 @@ if s_button:
     with open('data.txt', 'a+') as f:
         f.write(",".join(map(str, params)) + "\n")
 
-if len(computed) == len(t_values):
+if len(computed) == len(t_values) and len(computed) != 0:
     r2 = r2_score(t_values, computed)
     rmse = np.sqrt(mean_squared_error(t_values, computed))
     mae = mean_absolute_error(t_values, computed)
