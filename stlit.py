@@ -79,17 +79,21 @@ t_values = []
 
 # File upload
 v_file = st.file_uploader("📁 Upload Data File (.csv or .xlsx)")
+with st.expander("📘 File Format Instructions"):
+    st.markdown("""
+    - Your file must contain at least the following **numeric** columns:
+    - `z_values` (in cm)
+    - `t_values` (raw transmittance)
+    - `linear_transmittance` (in range of 0.10 to 1.00)
+    - `sample_length` (in m)
+    - `beam_waist` (in m)
+    - `pulse_width` (in s)
+    - `wavelength` (in m)
+    - Columns must be **case-sensitive**.
+    """)
 
 # File and simulation processing
 if v_file is not None:
-    with st.expander("📘 File Format Instructions"):
-        st.markdown("""
-        - Your file must contain at least the following **numeric** columns:
-        - `z_values` (in cm)
-        - `t_values` (raw transmittance)
-        - Columns must be **case-sensitive**.
-        """)
-
     try:
         df = ZScanSolution.process_file(v_file)
         st.success("File loaded successfully!")
