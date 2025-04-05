@@ -138,24 +138,26 @@ if s_button:
     with open('data.txt', 'a+') as f:
         f.write(",".join(map(str, params)) + "\n")
 
-if len(computed) == len(t_values) and len(computed) != 0:
-    r2 = r2_score(t_values, computed)
-    rmse = np.sqrt(mean_squared_error(t_values, computed))
-    mae = mean_absolute_error(t_values, computed)
-
-    st.subheader("📊 Goodness of Fit Metrics")
-
-    col1, col2, col3 = st.columns(3)
-    col1.metric("R² Score", f"{r2:.4f}", help="Closer to 1 is better")
-    col2.metric("RMSE", f"{rmse:.6f}", help="Closer to 0 is better")
-    col3.metric("MAE", f"{mae:.6f}", help="Closer to 0 is better")
-
-    # Add success/warning text
-    if r2 > 0.95:
-        st.success("Excellent Fit ✅")
-    elif r2 > 0.8:
-        st.info("Decent Fit ⚠️")
+if len(computed) != 0:    
+    if len(computed) == len(t_values):
+        r2 = r2_score(t_values, computed)
+        rmse = np.sqrt(mean_squared_error(t_values, computed))
+        mae = mean_absolute_error(t_values, computed)
+    
+        st.subheader("📊 Goodness of Fit Metrics")
+    
+        col1, col2, col3 = st.columns(3)
+        col1.metric("R² Score", f"{r2:.4f}", help="Closer to 1 is better")
+        col2.metric("RMSE", f"{rmse:.6f}", help="Closer to 0 is better")
+        col3.metric("MAE", f"{mae:.6f}", help="Closer to 0 is better")
+    
+        # Add success/warning text
+        if r2 > 0.95:
+            st.success("Excellent Fit ✅")
+        elif r2 > 0.8:
+            st.info("Decent Fit ⚠️")
+        else:
+            st.warning("Poor Fit – Consider tuning parameters 🛠️")
     else:
-        st.warning("Poor Fit – Consider tuning parameters 🛠️")
-else:
-    st.warning("Mismatch in data lengths – cannot calculate metrics.")
+        st.warning("Mismatch in data lengths – cannot calculate metrics.")
+else pass
