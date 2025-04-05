@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
-
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 # Exceptions
 class FileFormatError(Exception):
@@ -73,6 +73,9 @@ saturation_intensity = st.sidebar.number_input("Saturation Intensity (W/m²)", m
 beta = st.sidebar.number_input("Beta (Nonlinear Absorption)", min_value=1e-100, format='%e', value=1e-6)
 gamma = st.sidebar.number_input("Gamma (Nonlinear Refraction)", min_value=1e-100, format='%e', value=1e-6)
 max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, value=1e-4, format='%e')
+
+computed = []
+t_values = []
 
 # File upload
 v_file = st.file_uploader("📁 Upload Data File (.csv or .xlsx)")
