@@ -77,8 +77,7 @@ max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, v
 computed = []
 t_values = []
 
-# File upload
-v_file = st.file_uploader("📁 Upload Data File (.csv or .xlsx)")
+# File Req
 with st.expander("📘 File Format Instructions"):
     st.markdown("""
     - Your file must contain at least the following **numeric** columns:
@@ -91,6 +90,9 @@ with st.expander("📘 File Format Instructions"):
     - `wavelength` (in m)
     - Columns must be **case-sensitive**.
     """)
+
+# File upload
+v_file = st.file_uploader("📁 Upload Data File (.csv or .xlsx)")
 
 # File and simulation processing
 if v_file is not None:
