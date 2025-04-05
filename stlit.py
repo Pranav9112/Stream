@@ -64,7 +64,7 @@ class ZScanSolution:
 
 
 # Streamlit App
-st.title("🔬 Z-Scan Simulation")
+st.title("🔬 Z-Scan Data Fitting")
 st.sidebar.header("Input Parameters")
 
 # Sidebar inputs
