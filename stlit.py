@@ -110,6 +110,12 @@ if v_file is not None:
         st.success("File loaded successfully!")
         st.write("### Preview of Uploaded Data", df.head())
 
+        linear_transmittance = st.sidebar.number_input('Linear Transmission(m)', min_value=1e-100, format='%e', value=linear_transmittance)
+        sample_length = st.sidebar.number_input('Sample Length(m)', min_value=1e-100, format='%e', value=sample_length)
+        beam_waist = st.sidebar.number_input('Beam Waist(m)', min_value=1e-100, format='%e', value=beam_waist)
+        pulse_width = st.sidebar.number_input('Pulse Width(m)', min_value=1e-100, format='%e', value=pulse_width)
+        wavelength = st.sidebar.number_input('wavelength(m)', min_value=1e-100, format='%e', value=wavelength)
+        
         st.sidebar.markdown('**Values of:**')
         st.sidebar.markdown(f'Linear Transmittance: {linear_transmittance}')
         st.sidebar.markdown(f'Sample Length: {sample_length}')
