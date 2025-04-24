@@ -102,7 +102,7 @@ if v_file is not None:
         st.write("### Preview of Uploaded Data", df.head())
 
         z_values = df['z_values'].values * 1e-2  # convert cm to m
-        t_values = df['t_values'].values / 0.95  # normalize
+        t_values = df['t_values'].values / df['t_values].head(5).mean()  # normalize
         linear_transmittance = df['linear_transmittance'][0]
         sample_length = df['sample_length'][0]
         beam_waist = df['beam_waist'][0]
