@@ -100,7 +100,7 @@ if v_file is not None:
         df = ZScanSolution.process_file(v_file)
 
         z_values = df['z_values'].values * 1e-2  # convert cm to m
-        t_values = df['t_values'].values / df['t_values'].max() # normalize
+        t_values = df['t_values'].values / df['t_values'].nlargest(10).mean() # normalize
         linear_transmittance = df['linear_transmittance'][0]
         sample_length = df['sample_length'][0]
         beam_waist = df['beam_waist'][0]
