@@ -69,9 +69,9 @@ st.sidebar.header("Input Parameters")
 
 # Sidebar inputs
 energy = st.sidebar.number_input("Pulse Energy (J)", min_value=1e-100, format='%e', value=1e-3)
-saturation_intensity = st.sidebar.number_input("Saturation Intensity (W/m²)", min_value=1e-100, format='%e', value=1e-6)
-beta = st.sidebar.number_input("Beta (Nonlinear Absorption)", min_value=1e-100, format='%e', value=1e-6)
-gamma = st.sidebar.number_input("Gamma (Nonlinear Refraction)", min_value=1e-100, format='%e', value=1e-6)
+saturation_intensity = st.sidebar.number_input("Saturation Intensity (W/m²)", min_value=1e-1000, format='%e', value=1e-6)
+beta = st.sidebar.number_input("Beta (Nonlinear Absorption)", min_value=1e-1000, format='%e', value=1e-6)
+gamma = st.sidebar.number_input("Gamma (Nonlinear Refraction)", min_value=1e-1000, format='%e', value=1e-6)
 max_step = st.sidebar.number_input("Max Step Size for Solver", min_value=1e-6, value=1e-4, format='%e')
 
 computed = []
