@@ -98,8 +98,6 @@ v_file = st.file_uploader("📁 Upload Data File (.csv or .xlsx)")
 if v_file is not None:
     try:
         df = ZScanSolution.process_file(v_file)
-        st.success("File loaded successfully!")
-        st.write("### Preview of Uploaded Data", df.head())
 
         z_values = df['z_values'].values * 1e-2  # convert cm to m
         t_values = df['t_values'].values / df['t_values].head(5).mean()  # normalize
@@ -108,6 +106,9 @@ if v_file is not None:
         beam_waist = df['beam_waist'][0]
         pulse_width = df['pulse_width'][0]
         wavelength = df['wavelength'][0]
+        
+        st.success("File loaded successfully!")
+        st.write("### Preview of Uploaded Data", df.head())
 
         st.sidebar.markdown('**Values of:**')
         st.sidebar.markdown(f'Linear Transmittance: {linear_transmittance}')
